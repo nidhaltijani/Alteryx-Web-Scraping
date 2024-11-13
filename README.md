@@ -73,6 +73,7 @@ The Alteryx workflow is divided into the following sections:
 - **Automated Scheduling**: Schedule the workflow to run periodically for updated data.
 - **Additional Data Fields**: Scrape more detailed data if available on the source website.
 
-## License
+## References
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
+This project was inspired by the code and structure in the following GitHub repository:
+- [Stock Web Scraper by bharding216](https://github.com/bharding216/stock-web-scraper/tree/main)
