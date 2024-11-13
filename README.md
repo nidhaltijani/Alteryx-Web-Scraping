@@ -11,6 +11,8 @@ This project is an Alteryx-based web scraping workflow that extracts US NASDAQ s
 
 ## Workflow Overview
 
+![Alt Text](Screenshots/Full_workflow.jpg)
+
 The Alteryx workflow is divided into the following sections:
 
 1. **Page Cycling and URL Generation**  
