@@ -16,42 +16,45 @@ This project is an Alteryx-based web scraping workflow that extracts US NASDAQ s
 The Alteryx workflow is divided into the following sections:
 
 1. **Page Cycling and URL Generation**  
-2. **Web Scraping**
-3. **Table Header Adjustment**
-4. **Value Treatment**
-5. **Data Export**
+2. **PreProcessing**
+3. **Table Headers Extraction**
+4. **Values Treatment**
+5. **Financial Instruments Treatment**
 
 ### Workflow Components
 
 #### 1. Page Cycling and URL Generation
+![Alt Text](Screenshots/Crawler.jpg)
    - **Purpose**: This part of the workflow dynamically generates URLs for all 124 pages of stock data.
    - **Key Steps**:
      - The URL base template is concatenated with the page numbers, allowing the workflow to loop through each page.
-     - An "If" condition checks if the URL field is empty, ensuring URLs are generated correctly for all pages.
 
-#### 2. Web Scraping
-   - **Purpose**: Extracts stock data from each page.
+#### 2. PreProcessing
+![Alt Text](Screenshots/Preprocessing.jpg)
+   - **Purpose**: Extracts only the useful parts of the HTML code (The table tag).
    - **Key Steps**:
      - The workflow fetches HTML content for each page URL.
      - A series of conditions and filters check for the presence of relevant data in the downloaded HTML (e.g., tables and specific tags).
      - A flag is set when relevant data is found, which enables further processing in the next steps.
 
 #### 3. Table Header Treatment
-   - **Purpose**: Ensures consistency in table headers across all pages, as HTML structures might vary.
+![Alt Text](Screenshots/Headers_treatment.jpg)
+   - **Purpose**: Dynamic extraction of the table headers ( proof of concept ) but this part was not used, instead I edited the table headers with the select tool.
    - **Key Steps**:
-     - Replacement nodes are used to modify the headers as needed.
-     - Conditions check if headers are empty and, if so, replace them with standard headers to maintain uniformity.
+     - Cleaning of the input data.
+     - Dynamic extraction of the column headers.
 
-#### 4. Value Treatment
+#### 4. Values Treatment
+![Alt Text](Screenshots/Values_treatment.jpg)
    - **Purpose**: Cleans and standardizes extracted data values.
    - **Key Steps**:
-     - Replaces null values or placeholder strings with appropriate values.
      - Various parsing and transformation nodes format data columns to make them consistent.
-     - Duplicate checks and null handling are applied to prepare the data for export.
+     - Further cleaning steps to provide the expected outputs (eg: removing the thousands seperator, changing the column type..)
 
-#### 5. Data Export
-   - **Purpose**: Writes the final cleaned data to a CSV file.
-   - **Output**: The cleaned stock data is exported to `Scraped_data.csv`, ready for further analysis or visualization.
+#### 5. Financial Instruments treament
+![Alt Text](Screenshots/Stocks_treatment.jpg)
+   - **Purpose**: Extracts the stocks names seperately.
+   - **Output**: A list of the stocks names to be joined with the values extracted and consolidate the final dataset.
 
 ## Example Output
 
@@ -67,13 +70,12 @@ The Alteryx workflow is divided into the following sections:
 
 1. Open the workflow file in Alteryx Designer.
 2. Ensure your environment has access to the internet to fetch data from the source URL.
-3. Run the workflow, which will scrape data across 124 pages, clean it, and export the result to `Scraped_data.csv`.
+3. Run the workflow, which will scrape data across 124 pages, clean it, and export the result to `your_output_path/Scraped_data.csv`.
 
 ## Future Improvements
 
 - **Error Handling**: Implement error handling for network failures.
 - **Automated Scheduling**: Schedule the workflow to run periodically for updated data.
-- **Additional Data Fields**: Scrape more detailed data if available on the source website.
 
 ## References
 
